@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #007bff;
+  color: white;
+}
+
+.logo h1 {
+  margin: 0;
+}
+
+.navigation ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.navigation ul li a:hover {
+  text-decoration: underline;
+}
