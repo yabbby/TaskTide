@@ -58,7 +58,7 @@ const HomePage = () => {
           <div className="flex flex-wrap justify-center gap-8">
             <div className="w-64 p-6 border border-yellow-400 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl bg-darkblue text-white">
               <p className="text-lg mb-4">"TaskTide has helped me stay on top of my tasks. I can easily track everything in one place!"</p>
-              <p className="font-semibold text-yellow-400">Yeabsira Sisay</p>
+              <p className="font-semibold text-yellow-400">Yeabesera Sisay</p>
               <p className="text-gray-400">Productivity Enthusiast</p>
             </div>
             <div className="w-64 p-6 border border-yellow-400 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-2xl bg-darkblue text-white">
