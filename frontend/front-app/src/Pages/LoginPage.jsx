@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginPage = ({ setIsAuthenticated, setUsername }) => {
   const [email, setEmail] = useState('');
+  const [username, setUsernameInput] = useState(''); // New state for username
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const LoginPage = ({ setIsAuthenticated, setUsername }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const userData = { email, password };
+    const userData = { email, username, password }; // Include username in user data
 
     try {
       const response = await axios.post('http://localhost:5000/api/login', userData);
@@ -19,7 +20,7 @@ const LoginPage = ({ setIsAuthenticated, setUsername }) => {
 
       // After successful login, store token and user details
       localStorage.setItem('token', response.data.token); // Store token
-      localStorage.setItem('username', response.data.username); // Store username or email
+      localStorage.setItem('username', response.data.username); // Store username
       setIsAuthenticated(true);
       setUsername(response.data.username);
 
@@ -31,30 +32,41 @@ const LoginPage = ({ setIsAuthenticated, setUsername }) => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-blue-300">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+        <h2 className="text-2xl font-bold text-center mb-6 text-black">Login</h2>
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700" htmlFor="email">Email Address</label>
+            <label className="block text-sm font-medium text-black" htmlFor="email">Email Address</label>
             <input
               type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-black" htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsernameInput(e.target.value)} // Set username input value
+              required
+              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
           </div>
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700" htmlFor="password">Password</label>
+            <label className="block text-sm font-medium text-black" htmlFor="password">Password</label>
             <input
               type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
           </div>
           <button

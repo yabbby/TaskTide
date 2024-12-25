@@ -24,42 +24,44 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Header 
-        isAuthenticated={isAuthenticated} 
-        username={username} 
-        setIsAuthenticated={setIsAuthenticated} 
-        setUsername={setUsername} 
-      /> {/* Pass authentication state to Header */}
-      
-      <main className="container mx-auto p-4">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactUsPage />} />
-          
-          {/* Protect PlannerPage with ProtectedRoute */}
-          <Route 
-            path="/planner" 
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <PlannerPage />
-              </ProtectedRoute>
-            } 
-          />
-          
-          <Route 
-            path="/login" 
-            element={<LoginPage setIsAuthenticated={setIsAuthenticated} setUsername={setUsername} />} 
-          />
-          <Route 
-            path="/signup" 
-            element={<SignUpPage setIsAuthenticated={setIsAuthenticated} setUsername={setUsername} />} 
-          />
-        </Routes>
-        <p className="text-center text-gray-700 mt-8">{message}</p>
-      </main>
-    </Router>
+    <div className="bg-darkblue text-white min-h-screen flex flex-col">
+      <Router>
+        <Header 
+          isAuthenticated={isAuthenticated} 
+          username={username} 
+          setIsAuthenticated={setIsAuthenticated} 
+          setUsername={setUsername} 
+        /> {/* Pass authentication state to Header */}
+        
+        <main className="container mx-auto p-4 flex-grow">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactUsPage />} />
+            
+            {/* Protect PlannerPage with ProtectedRoute */}
+            <Route 
+              path="/planner" 
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <PlannerPage />
+                </ProtectedRoute>
+              } 
+            />
+            
+            <Route 
+              path="/login" 
+              element={<LoginPage setIsAuthenticated={setIsAuthenticated} setUsername={setUsername} />} 
+            />
+            <Route 
+              path="/signup" 
+              element={<SignUpPage setIsAuthenticated={setIsAuthenticated} setUsername={setUsername} />} 
+            />
+          </Routes>
+          <p className="text-center text-gray-300 mt-8">{message}</p>
+        </main>
+      </Router>
+    </div>
   );
 }
 

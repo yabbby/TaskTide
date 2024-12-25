@@ -21,40 +21,40 @@ const ContactUsPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 to-blue-300">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-center mb-6">Contact Us</h2>
+        <h2 className="text-2xl font-bold text-center mb-6 text-black">Contact Us</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700" htmlFor="firstName">First Name</label>
+            <label className="block text-sm font-medium text-black" htmlFor="firstName">First Name</label>
             <input
               type="text"
               id="firstName"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
-              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700" htmlFor="email">Email</label>
+            <label className="block text-sm font-medium text-black" htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
           </div>
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700" htmlFor="message">Message</label>
+            <label className="block text-sm font-medium text-black" htmlFor="message">Message</label>
             <textarea
               id="message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
-              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
               rows="4"
             />
           </div>
