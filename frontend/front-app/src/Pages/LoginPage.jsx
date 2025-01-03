@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginPage = ({ setIsAuthenticated, setUsername }) => {
   const [email, setEmail] = useState('');
+  const [username, setUsernameInput] = useState(''); // New state for username
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const LoginPage = ({ setIsAuthenticated, setUsername }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const userData = { email, password }; // Username is not needed for login
+    const userData = { email, username, password }; // Include username in user data
 
     try {
       const response = await axios.post('http://localhost:5000/api/login', userData);
@@ -26,14 +27,7 @@ const LoginPage = ({ setIsAuthenticated, setUsername }) => {
       // Redirect to home page after login
       navigate('/');
     } catch (error) {
-      if (error.response) {
-        setMessage(`Error: ${error.response.data.message || 'Server error occurred.'}`);
-      } else if (error.request) {
-        setMessage('Network error. Please try again.');
-      } else {
-        setMessage('An error occurred. Please try again.');
-      }
-      console.error('Login error:', error);
+      setMessage(error.response.data.message);
     }
   };
 
@@ -49,6 +43,17 @@ const LoginPage = ({ setIsAuthenticated, setUsername }) => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
+              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-black" htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsernameInput(e.target.value)} // Set username input value
               required
               className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />

@@ -3,8 +3,6 @@ import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header'; // Import Header
 import ProtectedRoute from './components/ProtectedRoute'; // Import ProtectedRoute
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for styling
 
 // Import pages
 import HomePage from './Pages/HomePage';
@@ -13,9 +11,6 @@ import PlannerPage from './Pages/PlannerPage';
 import ContactUsPage from './Pages/ContactUsPage';
 import LoginPage from './Pages/LoginPage';
 import SignUpPage from './Pages/SignUpPage';
-
-// Import Footer
-import Footer from './Footer';
 
 function App() {
   const [message, setMessage] = useState('');
@@ -65,21 +60,6 @@ function App() {
           </Routes>
           <p className="text-center text-gray-300 mt-8">{message}</p>
         </main>
-
-        <Footer /> {/* Add the Footer here */}
-
-        {/* ToastContainer for toast notifications */}
-        <ToastContainer 
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
       </Router>
     </div>
   );
