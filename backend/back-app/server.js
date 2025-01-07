@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:5173' })); // Ensure this matches your frontend's URL
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -28,10 +28,19 @@ const taskSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   dueDate: { type: Date, required: true },
-  status: { type: String, default: 'Pending' },
-});
+  status: { type: String, enum: ['Pending', 'Completed'], default: 'Pending' },
+}, { timestamps: true });
 
 const Task = mongoose.model('Task', taskSchema);
+
+// Define the Contact model
+const contactSchema = new mongoose.Schema({
+  firstName: { type: String, required: true },
+  email: { type: String, required: true },
+  message: { type: String, required: true }
+}, { timestamps: true });
+
+const Contact = mongoose.model('Contact', contactSchema);
 
 // Sample users
 const users = [];
@@ -85,12 +94,19 @@ app.post('/api/login', (req, res) => {
 app.post('/api/tasks', verifyToken, async (req, res) => {
   const { title, description, dueDate, status } = req.body;
 
+  if (!title || !description || !dueDate) {
+    return res.status(400).json({ message: 'All fields (title, description, dueDate) are required' });
+  }
+
+  console.log('Incoming request body:', req.body); // Debug log
+
   try {
     const newTask = new Task({ title, description, dueDate, status });
-    await newTask.save();
-    res.status(201).json(newTask);
+    const savedTask = await newTask.save();
+    console.log('Task created successfully:', savedTask); // Debug log
+    res.status(201).json(savedTask);
   } catch (error) {
-    console.error('Error adding task:', error);
+    console.error('Error adding task:', error.message); // Debug log
     res.status(500).json({ message: 'Server error while adding task' });
   }
 });
@@ -104,6 +120,21 @@ app.get('/api/tasks', verifyToken, async (req, res) => {
     console.error('Error fetching tasks:', error);
     res.status(500).json({ message: 'Server error while fetching tasks' });
   }
+});
+
+// POST /api/contact - Route to handle contact form submissions
+app.post('/api/contact', (req, res) => {
+  const { firstName, email, message } = req.body;
+
+  if (!firstName || !email || !message) {
+    return res.status(400).json({ message: 'All fields (firstName, email, message) are required' });
+  }
+
+  const newContact = new Contact({ firstName, email, message });
+  
+  newContact.save()
+    .then(() => res.status(201).json({ message: 'Contact information received successfully' }))
+    .catch(error => res.status(500).json({ message: 'Server error while saving contact information', error }));
 });
 
 const PORT = process.env.PORT || 5000;

@@ -11,7 +11,13 @@ const PlannerPage = () => {
 
   // Fetch tasks from the server when the component mounts
   useEffect(() => {
-    axios.get('http://localhost:5000/api/tasks')
+    const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
+
+    axios.get('http://localhost:5000/api/tasks', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then(response => {
         setTasks(response.data);
       })
@@ -25,8 +31,13 @@ const PlannerPage = () => {
     e.preventDefault();
 
     const newTask = { title, description, dueDate, status };
+    const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
 
-    axios.post('http://localhost:5000/api/tasks', newTask)
+    axios.post('http://localhost:5000/api/tasks', newTask, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
       .then(response => {
         setTasks([...tasks, response.data]); // Add the new task to the tasks list
         setMessage('Task added successfully!');
@@ -44,7 +55,7 @@ const PlannerPage = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="w-full max-w-3xl p-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-center mb-6">Planner</h2>
+        <h2 className="text-2xl font-bold text-center mb-6 text-black">Planner</h2>
 
         {/* Task Form */}
         <form onSubmit={handleAddTask}>
@@ -56,7 +67,7 @@ const PlannerPage = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
-              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
           </div>
 
@@ -67,7 +78,7 @@ const PlannerPage = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
-              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
           </div>
 
@@ -79,7 +90,7 @@ const PlannerPage = () => {
               value={dueDate}
               onChange={(e) => setDueDate(e.target.value)}
               required
-              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
           </div>
 
@@ -89,7 +100,7 @@ const PlannerPage = () => {
               id="status"
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             >
               <option value="Pending">Pending</option>
               <option value="Completed">Completed</option>
@@ -107,14 +118,14 @@ const PlannerPage = () => {
         {message && <p className="mt-4 text-center text-red-600">{message}</p>}
 
         {/* Task List */}
-        <h3 className="text-xl font-semibold mt-6 mb-4">Your Tasks</h3>
+        <h3 className="text-xl font-semibold mt-6 mb-4 text-black">Your Tasks</h3>
         <div>
           {tasks.length === 0 ? (
             <p>No tasks added yet.</p>
           ) : (
             <ul className="space-y-4">
               {tasks.map((task) => (
-                <li key={task._id} className="p-4 border-b border-gray-300">
+                <li key={task._id} className="p-4 border-b border-gray-300 text-black">
                   <h4 className="font-semibold">{task.title}</h4>
                   <p>{task.description}</p>
                   <p>Due Date: {new Date(task.dueDate).toLocaleDateString()}</p>

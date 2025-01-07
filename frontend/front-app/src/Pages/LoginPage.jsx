@@ -47,17 +47,6 @@ const LoginPage = ({ setIsAuthenticated, setUsername }) => {
               className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-black" htmlFor="username">Username</label>
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsernameInput(e.target.value)} // Set username input value
-              required
-              className="mt-2 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
-            />
-          </div>
           <div className="mb-6">
             <label className="block text-sm font-medium text-black" htmlFor="password">Password</label>
             <input
